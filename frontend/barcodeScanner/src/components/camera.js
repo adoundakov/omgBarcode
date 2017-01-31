@@ -7,28 +7,30 @@ import {
   TouchableHighlight,
   View
 } from 'react-native';
-import Camera from 'react-native-camera';
 
-class BadInstagramCloneApp extends Component {
+import Camera from 'react-native-camera';
+import Header from './header';
+
+class Scanner extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <Header headerText={'Scanner'}/>
         <Camera
+
           ref={(cam) => {
             this.camera = cam;
           }}
           style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}>
-          <Text style={styles.capture} onPress={this.takePicture.bind(this)}>[CAPTURE]</Text>
+          aspect={Camera.constants.Aspect.fill}
+          onBarCodeRead={this.processBarcode.bind(this)}>
         </Camera>
       </View>
     );
   }
 
-  takePicture() {
-    this.camera.capture()
-      .then((data) => alert('BLAAAAAH'))
-      .catch(err => alert(err));
+  processBarcode(e) {
+    alert(`BARCODE! Type: ${e.type} UPC: ${e.data}`);
   }
 }
 
@@ -40,7 +42,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center',
-    height: Dimensions.get('window').height,
+    height: (Dimensions.get('window').height - 60),
     width: Dimensions.get('window').width
   },
   capture: {
@@ -53,4 +55,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BadInstagramCloneApp;
+export default Scanner;
