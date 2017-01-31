@@ -17,13 +17,13 @@ class Scanner extends Component {
       <View style={styles.container}>
         <Header headerText={'Scanner'}/>
         <Camera
-
           ref={(cam) => {
             this.camera = cam;
           }}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}
           onBarCodeRead={this.processBarcode.bind(this)}>
+          <Text style={styles.barcodeOverlay}>Place Barcode in Box</Text>
         </Camera>
       </View>
     );
@@ -52,6 +52,19 @@ const styles = StyleSheet.create({
     color: '#000',
     padding: 10,
     margin: 40
+  },
+  barcodeOverlay: {
+    borderColor: '#F11009',
+    color: '#F11009',
+    borderWidth: 5,
+    bottom: 200,
+    paddingTop: 125,
+    paddingBottom: 15,
+    paddingHorizontal: 75,
+    textAlignVertical: 'bottom',
+    textAlign: 'center',
+    lineHeight: 2,
+    elevation: 2
   }
 });
 
