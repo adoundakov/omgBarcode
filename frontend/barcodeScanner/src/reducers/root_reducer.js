@@ -5,7 +5,7 @@ import CameraReducer from './camera_reducer';
 
 const RootReducer = combineReducers({
   items: ItemReducer,
-  showCamera: CameraReducer
+  displayCamera: CameraReducer
 });
 
 export default RootReducer;

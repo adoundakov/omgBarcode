@@ -1,8 +1,8 @@
-import { fetchItems, receiveItems } from '../util/item_util';
-import { REQUEST_ITEMS } from '../actions/item_actions';
+import { fetchItems } from '../util/item_util';
+import { REQUEST_ITEMS, receiveItems } from '../actions/item_actions';
 
 const ItemMiddleware = ({getState, dispatch}) => next => action => {
-  const fetchItemsSuccess = items => dispatch(receiveItems(items);
+  const fetchItemsSuccess = items => dispatch(receiveItems(items));
   const fetchItemsError = error => console.log(error);
 
   switch (action.type) {

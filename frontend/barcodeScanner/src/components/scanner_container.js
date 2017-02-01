@@ -5,7 +5,7 @@ import { requestItems } from '../actions/item_actions';
 import { showCamera, hideCamera } from '../actions/camera_actions';
 
 const mapStateToProps = (state) => ({
-   showCamera: state.showCamera,
+   displayCamera: state.displayCamera,
    items: state.items
  });
 

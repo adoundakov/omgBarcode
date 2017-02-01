@@ -5,49 +5,73 @@ import {
   StyleSheet,
   Text,
   TouchableHighlight,
-  View
+  View,
+  Linking
 } from 'react-native';
 
 import Camera from 'react-native-camera';
 import Header from './header';
-import { fetchItems } from '../util/item_util';
 
 class Scanner extends Component {
   constructor (props) {
     super(props);
-    this.showCamera = this.props.showCamera.bind(this);
-    this.hideCamera = this.props.hideCamera.bind(this);
+    this.showCamera = props.showCamera.bind(this);
+    this.hideCamera = props.hideCamera.bind(this);
     this.processBarcode = this.processBarcode.bind(this);
   }
 
   componentWillMount() {
-    this.props.fetchItems();
+    this.props.requestItems();
   }
 
   processBarcode(e) {
+    this.hideCamera();
     const itemKeys = Object.keys(this.props.items);
-    if (itemKeys.includes(e.data)) {
-      alert(`Found ${this.props.items[e.data].name} with code ${e.data}`);
+    let code = e.data.slice(1);
+    if (itemKeys.includes(code)) {
+      let item = this.props.items[code];
+      alert(`Found ${item.name} with code ${code}`);
     } else {
-      alert(`No item found with code ${e.data}`);
+      alert(`No item found with code ${code}`);
     }
   }
 
   render() {
-    return (
-      <View style={styles.container}>
-        <Header headerText={'Scanner'}/>
-        <Camera
-          ref={cam => {
-            this.camera = cam;
-          }}
-          style={styles.preview}
-          aspect={Camera.constants.Aspect.fill}
-          onBarCodeRead={this.processBarcode}>
-          <Text style={styles.barcodeOverlay}>Place Barcode in Box</Text>
-        </Camera>
-      </View>
-    );
+    if (this.props.displayCamera) {
+      return (
+        <View style={styles.container}>
+          <Header headerText={'Scanner'}/>
+          <Camera
+            ref={cam => {
+              this.camera = cam;
+            }}
+            style={styles.preview}
+            aspect={Camera.constants.Aspect.fill}
+            onBarCodeRead={this.processBarcode}>
+            <Text style={styles.closeCamera} onPress={this.hideCamera}>close</Text>
+            <Text style={styles.barcodeOverlay}>Place Barcode in Box</Text>
+          </Camera>
+        </View>
+      );
+    } else {
+      return (
+        <View style={styles.welcome}>
+          <Text style={styles.info}>
+            Welcome to the omgBarcode Scanner. Please tap 'Start Scanner' to get started!
+          </Text>
+          <Text style={styles.info}>
+            This app was built by Alexander Doundakov as a challenge.
+          </Text>
+          <Text style={styles.showButton}
+                onPress={this.showCamera}>Start Scanner
+          </Text>
+          <Text style={styles.showButton}
+                onPress={() => Linking.openURL('http://github.com/adoundakov/omgBarcode')}>
+                GitHub
+          </Text>
+        </View>
+      );
+    }
   }
 
 }
@@ -63,14 +87,6 @@ const styles = StyleSheet.create({
     height: (Dimensions.get('window').height - 60),
     width: Dimensions.get('window').width
   },
-  capture: {
-    flex: 0,
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    color: '#000',
-    padding: 10,
-    margin: 40
-  },
   barcodeOverlay: {
     borderColor: '#F11009',
     color: '#F11009',
@@ -83,6 +99,40 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     lineHeight: 2,
     elevation: 2
+  },
+  showButton: {
+    color: 'white',
+    backgroundColor: '#5DB745',
+    paddingVertical: 14,
+    paddingHorizontal: 28,
+    textAlign: 'center',
+    textAlignVertical: 'center',
+    fontSize: 28,
+    borderRadius: 4
+  },
+  closeCamera: {
+    position: 'absolute',
+    textAlign: 'center',
+    color: '#fff',
+    fontSize: 14,
+    right: 15,
+    top: 25,
+    borderWidth: 1,
+    borderColor: '#fff',
+    borderRadius: 5,
+    paddingHorizontal: 4,
+  },
+  info: {
+    textAlign: 'center',
+    color: '#333333',
+    marginBottom: 5,
+    paddingHorizontal: 14
+  },
+  welcome: {
+    flex: 1,
+    justifyContent: 'space-around',
+    alignItems: 'center',
+    marginVertical: 50
   }
 });
 

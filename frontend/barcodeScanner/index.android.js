@@ -1,7 +1,7 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
-
-import configureStore from './store/store';
+import { Provider } from 'react-redux';
+import configureStore from './src/store/store';
 import ScannerContainer from './src/components/scanner_container';
 
 const store = configureStore();

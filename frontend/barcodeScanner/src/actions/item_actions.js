@@ -1,11 +1,11 @@
 export const REQUEST_ITEMS = 'REQUEST_ITEMS';
 export const RECEIVE_ITEMS = 'RECEIVE_ITEMS';
 
-export const requestItems = () => {
+export const requestItems = () => ({
   type: REQUEST_ITEMS
-}
+});
 
-export const receiveItems = items => {
+export const receiveItems = items => ({
   type: RECEIVE_ITEMS,
   items
-}
+});
