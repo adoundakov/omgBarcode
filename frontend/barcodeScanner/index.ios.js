@@ -1,10 +1,15 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { AppRegistry } from 'react-native';
+import { Provider } from 'react-redux';
+import configureStore from './src/store/store';
+import ScannerContainer from './src/components/scanner_container';
 
-import Header from './src/components/header';
+const store = configureStore();
 
 const App = () => (
-  <Header headerText={'Barcode Scanner'}/>
+  <Provider store={store}>
+    <ScannerContainer />
+  </Provider>
 );
 
 AppRegistry.registerComponent('barcodeScanner', () => App);
