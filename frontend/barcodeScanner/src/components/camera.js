@@ -10,6 +10,7 @@ import {
 
 import Camera from 'react-native-camera';
 import Header from './header';
+import { fetchItems } from '../util/item_util';
 
 class Scanner extends Component {
   render() {
@@ -17,7 +18,7 @@ class Scanner extends Component {
       <View style={styles.container}>
         <Header headerText={'Scanner'}/>
         <Camera
-          ref={(cam) => {
+          ref={cam => {
             this.camera = cam;
           }}
           style={styles.preview}
@@ -30,7 +31,8 @@ class Scanner extends Component {
   }
 
   processBarcode(e) {
-    alert(`BARCODE! Type: ${e.type} UPC: ${e.data}`);
+    // alert(`BARCODE! Type: ${e.type} UPC: ${e.data}`);
+    fetchItems();
   }
 }
 

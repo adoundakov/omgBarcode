@@ -1,11 +1,6 @@
-export const fetchItems = () => {
+export const fetchItems = (success, error) => {
   return fetch('http://omgbarcode.herokuapp.com/api/items')
-    .then(response => alert(response))
-    .catch(err => alert(`ERR ${err}`));
-};
-
-export const fetchItems = () => {
-  return fetch('http://omgbarcode.herokuapp.com/api/items')
-    .then(response => alert(response))
-    .catch(err => alert(`ERR ${err}`));
+    .then(response => response.json())
+    .then(response => success(response))
+    .catch(err => error(err));
 };
