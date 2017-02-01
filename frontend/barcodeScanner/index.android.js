@@ -1,10 +1,15 @@
 import React from 'react';
 import { AppRegistry } from 'react-native';
 
-import Scanner from './src/components/camera';
+import configureStore from './store/store';
+import ScannerContainer from './src/components/scanner_container';
+
+const store = configureStore();
 
 const App = () => (
-    <Scanner />
+  <Provider store={store}>
+    <ScannerContainer />
+  </Provider>
 );
 
 AppRegistry.registerComponent('barcodeScanner', () => App);

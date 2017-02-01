@@ -13,6 +13,26 @@ import Header from './header';
 import { fetchItems } from '../util/item_util';
 
 class Scanner extends Component {
+  constructor (props) {
+    super(props);
+    this.showCamera = this.props.showCamera.bind(this);
+    this.hideCamera = this.props.hideCamera.bind(this);
+    this.processBarcode = this.processBarcode.bind(this);
+  }
+
+  componentWillMount() {
+    this.props.fetchItems();
+  }
+
+  processBarcode(e) {
+    const itemKeys = Object.keys(this.props.items);
+    if (itemKeys.includes(e.data)) {
+      alert(`Found ${this.props.items[e.data].name} with code ${e.data}`);
+    } else {
+      alert(`No item found with code ${e.data}`);
+    }
+  }
+
   render() {
     return (
       <View style={styles.container}>
@@ -23,17 +43,13 @@ class Scanner extends Component {
           }}
           style={styles.preview}
           aspect={Camera.constants.Aspect.fill}
-          onBarCodeRead={this.processBarcode.bind(this)}>
+          onBarCodeRead={this.processBarcode}>
           <Text style={styles.barcodeOverlay}>Place Barcode in Box</Text>
         </Camera>
       </View>
     );
   }
 
-  processBarcode(e) {
-    // alert(`BARCODE! Type: ${e.type} UPC: ${e.data}`);
-    fetchItems();
-  }
 }
 
 const styles = StyleSheet.create({
