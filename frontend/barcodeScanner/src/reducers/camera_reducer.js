@@ -1,8 +1,6 @@
 import { SHOW_CAMERA, HIDE_CAMERA } from '../actions/camera_actions';
 
 const CameraReducer = (state = {}, action) => {
-  Object.freeze(state);
-
   switch (action.type) {
     case SHOW_CAMERA:
       return true;
