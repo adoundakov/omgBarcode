@@ -31,3 +31,22 @@ codes for any products you have at home to test it out.
   - UPC Codes are 12 Digits Long
 
 ## Implementation
+
+### Rails Web Endpoint
+
+[LIVE](http://omgbarcode.herokuapp.com)
+
+#### Structure
+
+#### Routes
+
+#### DB Schema
+
+
+### ReactNative App
+
+The mobile app is located in [/frontend](./frontend/barcodeScanner). It makes use of the `react-native-camera` [package](https://github.com/lwansbrough/react-native-camera). 
+
+#### Structure
+
+#### API Communication
